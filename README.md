@@ -14,7 +14,7 @@
 
 ## 使い方
 
-![](https://cdn-ak.f.st-hatena.com/images/fotolife/b/baba_s/20190407/20190407202229.png)
+![](https://cdn-ak.f.st-hatena.com/images/fotolife/b/baba_s/20190407/20190407203153.png)
 
 border を設定したいテクスチャを右クリックして「Sprite Border Setup」を選択すると  
 

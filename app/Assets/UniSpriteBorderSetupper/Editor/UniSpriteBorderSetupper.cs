@@ -13,7 +13,7 @@ namespace UniSpriteBorderSetupperEditor
 		//==============================================================================
 		// 定数(const)
 		//==============================================================================
-		private const string MENU_ITEM_NAME = "Assets/Sprite Border Setup";
+		private const string MENU_ITEM_NAME = "Assets/Setup Sprite Border";
 
 		//==============================================================================
 		// クラス

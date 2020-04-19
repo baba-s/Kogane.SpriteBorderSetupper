@@ -2,7 +2,7 @@
 
 namespace OnionRing
 {
-	public class TextureSlicer
+	internal class TextureSlicer
 	{
 		public static SlicedTexture Slice(Texture2D texture)
 		{
@@ -141,7 +141,7 @@ namespace OnionRing
 		}
 	}
 
-	public class SlicedTexture
+	internal class SlicedTexture
 	{
 		public SlicedTexture(Boarder boarder)
 		{
@@ -151,7 +151,7 @@ namespace OnionRing
 		public Boarder Boarder { get; private set; }
 	}
 
-	public class Boarder
+	internal class Boarder
 	{
 		public Boarder(int left, int bottom, int right, int top)
 		{

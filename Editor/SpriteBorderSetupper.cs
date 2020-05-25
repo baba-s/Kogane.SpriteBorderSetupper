@@ -145,6 +145,8 @@ namespace UniSpriteBorderSetupper
 
 			try
 			{
+				AssetDatabase.StartAssetEditing();
+
 				foreach ( var ( index, val ) in list.Select( ( val, index ) => ( index, val ) ) )
 				{
 					onDisplayProgressBarPreprocess?.Invoke( index + 1, count, val.Path );
@@ -156,6 +158,7 @@ namespace UniSpriteBorderSetupper
 			}
 			finally
 			{
+				AssetDatabase.StopAssetEditing();
 				onClearProgressBar?.Invoke();
 			}
 
@@ -166,6 +169,8 @@ namespace UniSpriteBorderSetupper
 			{
 				try
 				{
+					AssetDatabase.StartAssetEditing();
+
 					foreach ( var ( index, val ) in list.Select( ( val, index ) => ( index, val ) ) )
 					{
 						onDisplayProgressBarProcessing?.Invoke( index + 1, count, val.Path );
@@ -179,6 +184,7 @@ namespace UniSpriteBorderSetupper
 				}
 				finally
 				{
+					AssetDatabase.StopAssetEditing();
 					onClearProgressBar?.Invoke();
 					onComplete?.Invoke();
 				}

@@ -69,12 +69,31 @@ namespace Kogane.Internal
 
 			if ( !isOk ) return;
 
-			var list = Selection.objects
+			var textureListAtFile = Selection.objects
 					.OfType<Texture2D>()
 					.ToArray()
 				;
 
-			if ( !list.Any() ) return;
+			var allAssetPaths = AssetDatabase.GetAllAssetPaths();
+
+			// フォルダが選択されている場合は
+			// そのフォルダ以下のすべてのテクスチャを対象にする
+			var textureListInFolder = Selection.objects
+					.Select( x => AssetDatabase.GetAssetPath( x ) )
+					.Where( x => AssetDatabase.IsValidFolder( x ) )
+					.SelectMany( x => allAssetPaths.Where( y => y.StartsWith( x ) ) )
+					.Select( x => AssetDatabase.LoadAssetAtPath<Texture2D>( x ) )
+					.Where( x => x != null )
+					.ToArray()
+				;
+
+			var textureList = textureListAtFile
+					.Concat( textureListInFolder )
+					.Distinct()
+					.ToArray()
+				;
+			
+			if ( !textureList.Any() ) return;
 
 			void OnDisplayProgressBarPreprocess( int number, int count, string path )
 			{
@@ -108,7 +127,7 @@ namespace Kogane.Internal
 
 			Setup
 			(
-				textureList: list,
+				textureList: textureList,
 				onDisplayProgressBarPreprocess: OnDisplayProgressBarPreprocess,
 				onDisplayProgressBarProcessing: OnDisplayProgressBarProcessing,
 				onClearProgressBar: EditorUtility.ClearProgressBar,
@@ -134,6 +153,8 @@ namespace Kogane.Internal
 
 			try
 			{
+				AssetDatabase.StartAssetEditing();
+
 				foreach ( var ( index, val ) in list.Select( ( val, index ) => ( index, val ) ) )
 				{
 					onDisplayProgressBarPreprocess?.Invoke( index + 1, count, val.Path );
@@ -145,6 +166,7 @@ namespace Kogane.Internal
 			}
 			finally
 			{
+				AssetDatabase.StopAssetEditing();
 				onClearProgressBar?.Invoke();
 			}
 
@@ -155,6 +177,8 @@ namespace Kogane.Internal
 			{
 				try
 				{
+					AssetDatabase.StartAssetEditing();
+
 					foreach ( var ( index, val ) in list.Select( ( val, index ) => ( index, val ) ) )
 					{
 						onDisplayProgressBarProcessing?.Invoke( index + 1, count, val.Path );
@@ -168,6 +192,7 @@ namespace Kogane.Internal
 				}
 				finally
 				{
+					AssetDatabase.StopAssetEditing();
 					onClearProgressBar?.Invoke();
 					onComplete?.Invoke();
 				}

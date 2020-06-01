@@ -5,12 +5,12 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace UniSpriteBorderSetupper
+namespace Kogane.Internal
 {
 	/// <summary>
 	/// スプライトの border を設定するクラス
 	/// </summary>
-	public static class SpriteBorderSetupper
+	internal static class SpriteBorderSetupper
 	{
 		//================================================================================
 		// 定数
@@ -21,14 +21,14 @@ namespace UniSpriteBorderSetupper
 		//================================================================================
 		// デリゲート
 		//================================================================================
-		public delegate void DisplayProgressBarCallback
+		private delegate void DisplayProgressBarCallback
 		(
 			int    number,
 			int    count,
 			string path
 		);
 
-		public delegate void ClearProgressBarCallback();
+		private delegate void ClearProgressBarCallback();
 
 		//================================================================================
 		// クラス
@@ -49,12 +49,7 @@ namespace UniSpriteBorderSetupper
 				Importer = AssetImporter.GetAtPath( Path ) as TextureImporter;
 			}
 		}
-
-		//================================================================================
-		// デリゲート（static）
-		//================================================================================
-		public static Action OnSetup { private get; set; }
-
+		
 		//================================================================================
 		// 関数（static）
 		//================================================================================
@@ -64,12 +59,6 @@ namespace UniSpriteBorderSetupper
 		[MenuItem( MENU_ITEM_NAME )]
 		private static void DoSetup()
 		{
-			if ( OnSetup != null )
-			{
-				OnSetup();
-				return;
-			}
-
 			var isOk = EditorUtility.DisplayDialog
 			(
 				title: NAME,
@@ -127,7 +116,7 @@ namespace UniSpriteBorderSetupper
 			);
 		}
 
-		public static void Setup
+		private static void Setup
 		(
 			IEnumerable<Texture2D>     textureList,
 			DisplayProgressBarCallback onDisplayProgressBarPreprocess = default,

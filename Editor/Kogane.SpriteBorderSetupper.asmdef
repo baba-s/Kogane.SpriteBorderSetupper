@@ -1,5 +1,5 @@
 {
-    "name": "UniSpriteBorderSetupper",
+    "name": "Kogane.SpriteBorderSetupper",
     "references": [],
     "includePlatforms": [
         "Editor"

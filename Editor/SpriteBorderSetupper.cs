@@ -56,7 +56,7 @@ namespace Kogane.Internal
         /// <summary>
         /// スプライトの border を設定します
         /// </summary>
-        [MenuItem( MENU_ITEM_NAME )]
+        [MenuItem( MENU_ITEM_NAME, false, 1626656553 )]
         private static void DoSetup()
         {
             var isOk = EditorUtility.DisplayDialog
